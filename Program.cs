@@ -37,9 +37,9 @@ app.UseSwaggerUI();
 
 // U¿yj CORS przed autoryzacj¹
 app.UseCors("AllowFrontend");
-
-app.UseHttpsRedirection();
+app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
+app.Urls.Add("http://0.0.0.0:49536");
 app.Run();

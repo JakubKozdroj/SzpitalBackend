@@ -8,7 +8,7 @@ using SzpitalnaKadra.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Dodaj CORS — nazwa polityki to "AllowFrontend"
+// Dodaj CORS ï¿½ nazwa polityki to "AllowFrontend"
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowFrontend", policy =>
@@ -35,11 +35,11 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-// U¿yj CORS przed autoryzacj¹
+// Uï¿½yj CORS przed autoryzacjï¿½
 app.UseCors("AllowFrontend");
 app.UseRouting();
 app.UseAuthorization();
 app.MapControllers();
 
-app.Urls.Add("http://0.0.0.0:49536");
+app.Urls.Add("http://0.0.0.0:49537");
 app.Run();

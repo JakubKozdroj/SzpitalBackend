@@ -18,6 +18,15 @@ namespace SzpitalnaKadra.Controllers
         [HttpGet]
         public IActionResult GetAll() => Ok(_context.Osoby.ToList());
 
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var osoba = _context.Osoby.FirstOrDefault(o => o.Id == id);
+            if (osoba == null)
+                return NotFound();
+            return Ok(osoba);
+        }
+
         [HttpPost]
         public IActionResult Add(Osoba osoba)
         {

@@ -23,5 +23,41 @@ namespace SzpitalnaKadra.Controllers
                 return NotFound();
             return Ok(zatrudnienie);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var zatrudnienie = _context.Zatrudnienia.FirstOrDefault(z => z.Id == id);
+            if (zatrudnienie == null)
+                return NotFound();
+            return Ok(zatrudnienie);
+        }
+
+        [HttpPost]
+        public IActionResult Add(Zatrudnienie zatrudnienie)
+        {
+            zatrudnienie.CreatedAt = DateTime.Now;
+            zatrudnienie.UpdatedAt = DateTime.Now;
+            _context.Zatrudnienia.Add(zatrudnienie);
+            _context.SaveChanges();
+            return Ok(zatrudnienie);
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, Zatrudnienie zatrudnienie)
+        {
+            var existing = _context.Zatrudnienia.FirstOrDefault(z => z.Id == id);
+            if (existing == null)
+                return NotFound();
+
+            existing.ZatrudnienieDeklaracja = zatrudnienie.ZatrudnienieDeklaracja;
+            existing.ZatrudnionyOd = zatrudnienie.ZatrudnionyOd;
+            existing.ZatrudnionyDo = zatrudnienie.ZatrudnionyDo;
+            existing.SrednioczasowyCzasPracy = zatrudnienie.SrednioczasowyCzasPracy;
+            existing.UpdatedAt = DateTime.Now;
+
+            _context.SaveChanges();
+            return Ok(existing);
+        }
     }
 }

@@ -32,8 +32,15 @@ builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
 
-app.UseSwagger();
-app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Szpitalna Kadra API V1");
+        c.RoutePrefix = "swagger";
+    });
+}
 
 // U�yj CORS przed autoryzacj�
 app.UseCors("AllowFrontend");

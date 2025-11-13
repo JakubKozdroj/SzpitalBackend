@@ -34,5 +34,26 @@ namespace SzpitalnaKadra.Controllers
             _context.SaveChanges();
             return Ok(osoba);
         }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, Osoba osoba)
+        {
+            var existing = _context.Osoby.FirstOrDefault(o => o.Id == id);
+            if (existing == null)
+                return NotFound();
+
+            existing.Imie = osoba.Imie;
+            existing.Imie2 = osoba.Imie2;
+            existing.Nazwisko = osoba.Nazwisko;
+            existing.Pesel = osoba.Pesel;
+            existing.DataUrodzenia = osoba.DataUrodzenia;
+            existing.NrPwz = osoba.NrPwz;
+            existing.NumerTelefonu = osoba.NumerTelefonu;
+            existing.PlecId = osoba.PlecId;
+            existing.TypPersoneluId = osoba.TypPersoneluId;
+
+            _context.SaveChanges();
+            return Ok(existing);
+        }
     }
 }

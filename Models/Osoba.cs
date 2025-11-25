@@ -38,6 +38,9 @@ namespace SzpitalnaKadra.Models
         public string NrPwz { get; set; } = string.Empty;
 
         [Column("numer_telefonu")]
-        public string? NumerTelefonu { get; set; } // <<< Nowe pole
+        public string? NumerTelefonu { get; set; }
+
+        [Column("data_zgonu", TypeName = "date")]
+        public DateTime? DataZgonu { get; set; }
     }
 }

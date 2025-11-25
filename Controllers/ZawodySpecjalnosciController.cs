@@ -25,5 +25,52 @@ namespace SzpitalnaKadra.Controllers
 
             return Ok(zawody);
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<ZawodySpecjalnosci> GetById(int id)
+        {
+            var zawod = _context.ZawodySpecjalnosci.Find(id);
+            if (zawod == null)
+                return NotFound();
+            
+            return Ok(zawod);
+        }
+
+        [HttpPost]
+        public ActionResult<ZawodySpecjalnosci> Create(ZawodySpecjalnosci zawod)
+        {
+            _context.ZawodySpecjalnosci.Add(zawod);
+            _context.SaveChanges();
+            return CreatedAtAction(nameof(GetById), new { id = zawod.Id }, zawod);
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult<ZawodySpecjalnosci> Update(int id, ZawodySpecjalnosci zawod)
+        {
+            var existing = _context.ZawodySpecjalnosci.Find(id);
+            if (existing == null)
+                return NotFound();
+
+            existing.Kod = zawod.Kod;
+            existing.Nazwa = zawod.Nazwa;
+            existing.StopienSpecjalizacji = zawod.StopienSpecjalizacji;
+            existing.DataOtwarciaSpecjalizacji = zawod.DataOtwarciaSpecjalizacji;
+            existing.Dyplom = zawod.Dyplom;
+
+            _context.SaveChanges();
+            return Ok(existing);
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult Delete(int id)
+        {
+            var zawod = _context.ZawodySpecjalnosci.Find(id);
+            if (zawod == null)
+                return NotFound();
+
+            _context.ZawodySpecjalnosci.Remove(zawod);
+            _context.SaveChanges();
+            return NoContent();
+        }
     }
 }

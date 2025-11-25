@@ -59,5 +59,17 @@ namespace SzpitalnaKadra.Controllers
             _context.SaveChanges();
             return Ok(existing);
         }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            var zatrudnienie = _context.Zatrudnienia.FirstOrDefault(z => z.Id == id);
+            if (zatrudnienie == null)
+                return NotFound();
+
+            _context.Zatrudnienia.Remove(zatrudnienie);
+            _context.SaveChanges();
+            return Ok(new { message = "Zatrudnienie zostało usunięte" });
+        }
     }
 }

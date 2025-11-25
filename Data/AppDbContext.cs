@@ -17,5 +17,6 @@ namespace SzpitalnaKadra.Data
         public DbSet<ZawodySpecjalnosci> ZawodySpecjalnosci { get; set; }
         public DbSet<KompetencjeUmiejetnosci> KompetencjeUmiejetnosci { get; set; }
         public DbSet<DoswiadczenieZawodowe> DoswiadczenieZawodowe { get; set; }
+        public DbSet<MiejscePracy> MiejscaPracy { get; set; }
     }
 }

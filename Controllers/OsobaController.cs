@@ -47,6 +47,7 @@ namespace SzpitalnaKadra.Controllers
             existing.Nazwisko = osoba.Nazwisko;
             existing.Pesel = osoba.Pesel;
             existing.DataUrodzenia = osoba.DataUrodzenia;
+            existing.DataZgonu = osoba.DataZgonu;
             existing.NrPwz = osoba.NrPwz;
             existing.NumerTelefonu = osoba.NumerTelefonu;
             existing.PlecId = osoba.PlecId;

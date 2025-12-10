@@ -1,6 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace SzpitalnaKadra.Models
 {
@@ -9,28 +10,35 @@ namespace SzpitalnaKadra.Models
     {
         [Key]
         [Column("id")]
+        [JsonPropertyName("id")]
         public int Id { get; set; }
 
         [Column("osoba_id")]
+        [JsonPropertyName("osobaId")]
         public int OsobaId { get; set; }
 
         [Column("rodzaj_wyksztalcenia")]
         [StringLength(255)]
-        public string RodzajWyksztalcenia { get; set; }
+        [JsonPropertyName("rodzajWyksztalcenia")]
+        public string? RodzajWyksztalcenia { get; set; }
 
         [Column("kierunek")]
         [StringLength(255)]
-        public string Kierunek { get; set; }
+        [JsonPropertyName("kierunek")]
+        public string? Kierunek { get; set; }
 
         [Column("uczelnia")]
         [StringLength(255)]
-        public string Uczelnia { get; set; }
+        [JsonPropertyName("uczelnia")]
+        public string? Uczelnia { get; set; }
 
         [Column("data_ukonczenia")]
+        [JsonPropertyName("dataUkonczenia")]
         public DateTime? DataUkonczenia { get; set; }
 
         [Column("dyplom")]
         [StringLength(255)]
-        public string Dyplom { get; set; }
+        [JsonPropertyName("dyplom")]
+        public string? Dyplom { get; set; }
     }
 }

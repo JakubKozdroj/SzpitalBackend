@@ -39,6 +39,11 @@ namespace SzpitalnaKadra.Controllers
         [HttpPost]
         public ActionResult<ZawodySpecjalnosci> Create(ZawodySpecjalnosci zawod)
         {
+            if (zawod.DataOtwarciaSpecjalizacji.HasValue)
+            {
+                zawod.DataOtwarciaSpecjalizacji = DateTime.SpecifyKind(zawod.DataOtwarciaSpecjalizacji.Value, DateTimeKind.Utc);
+            }
+            
             _context.ZawodySpecjalnosci.Add(zawod);
             _context.SaveChanges();
             return CreatedAtAction(nameof(GetById), new { id = zawod.Id }, zawod);
@@ -54,7 +59,16 @@ namespace SzpitalnaKadra.Controllers
             existing.Kod = zawod.Kod;
             existing.Nazwa = zawod.Nazwa;
             existing.StopienSpecjalizacji = zawod.StopienSpecjalizacji;
-            existing.DataOtwarciaSpecjalizacji = zawod.DataOtwarciaSpecjalizacji;
+            
+            if (zawod.DataOtwarciaSpecjalizacji.HasValue)
+            {
+                existing.DataOtwarciaSpecjalizacji = DateTime.SpecifyKind(zawod.DataOtwarciaSpecjalizacji.Value, DateTimeKind.Utc);
+            }
+            else
+            {
+                existing.DataOtwarciaSpecjalizacji = null;
+            }
+            
             existing.Dyplom = zawod.Dyplom;
 
             _context.SaveChanges();
@@ -71,6 +85,42 @@ namespace SzpitalnaKadra.Controllers
             _context.ZawodySpecjalnosci.Remove(zawod);
             _context.SaveChanges();
             return NoContent();
+        }
+
+        [HttpGet("options/nazwa")]
+        public ActionResult<IEnumerable<string>> GetNazwyOptions()
+        {
+            var nazwy = _context.ZawodySpecjalnosci
+                .Where(z => !string.IsNullOrEmpty(z.Nazwa))
+                .Select(z => z.Nazwa)
+                .Distinct()
+                .OrderBy(n => n)
+                .ToList();
+            return Ok(nazwy);
+        }
+
+        [HttpGet("options/stopien")]
+        public ActionResult<IEnumerable<string>> GetStopnieOptions()
+        {
+            var stopnie = _context.ZawodySpecjalnosci
+                .Where(z => !string.IsNullOrEmpty(z.StopienSpecjalizacji))
+                .Select(z => z.StopienSpecjalizacji)
+                .Distinct()
+                .OrderBy(s => s)
+                .ToList();
+            return Ok(stopnie);
+        }
+
+        [HttpGet("options/dyplom")]
+        public ActionResult<IEnumerable<string>> GetDyplomyOptions()
+        {
+            var dyplomy = _context.ZawodySpecjalnosci
+                .Where(z => !string.IsNullOrEmpty(z.Dyplom))
+                .Select(z => z.Dyplom)
+                .Distinct()
+                .OrderBy(d => d)
+                .ToList();
+            return Ok(dyplomy);
         }
     }
 }

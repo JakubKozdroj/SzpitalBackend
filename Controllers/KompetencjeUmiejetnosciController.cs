@@ -71,5 +71,41 @@ namespace SzpitalnaKadra.Controllers
             _context.SaveChanges();
             return NoContent();
         }
+
+        [HttpGet("options/nazwa")]
+        public ActionResult<IEnumerable<string>> GetNazwyOptions()
+        {
+            var nazwy = _context.KompetencjeUmiejetnosci
+                .Where(k => !string.IsNullOrEmpty(k.Nazwa))
+                .Select(k => k.Nazwa)
+                .Distinct()
+                .OrderBy(n => n)
+                .ToList();
+            return Ok(nazwy);
+        }
+
+        [HttpGet("options/poziom")]
+        public ActionResult<IEnumerable<string>> GetPoziomyOptions()
+        {
+            var poziomy = _context.KompetencjeUmiejetnosci
+                .Where(k => !string.IsNullOrEmpty(k.Poziom))
+                .Select(k => k.Poziom)
+                .Distinct()
+                .OrderBy(p => p)
+                .ToList();
+            return Ok(poziomy);
+        }
+
+        [HttpGet("options/zaswiadczenie")]
+        public ActionResult<IEnumerable<string>> GetZaswiadczeniaOptions()
+        {
+            var zaswiadczenia = _context.KompetencjeUmiejetnosci
+                .Where(k => !string.IsNullOrEmpty(k.Zaswiadczenie))
+                .Select(k => k.Zaswiadczenie)
+                .Distinct()
+                .OrderBy(z => z)
+                .ToList();
+            return Ok(zaswiadczenia);
+        }
     }
 }

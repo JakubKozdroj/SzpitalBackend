@@ -70,5 +70,29 @@ namespace SzpitalnaKadra.Controllers
             _context.SaveChanges();
             return NoContent();
         }
+
+        [HttpGet("options/nazwa")]
+        public ActionResult<IEnumerable<string>> GetNazwyOptions()
+        {
+            var nazwy = _context.DoswiadczenieZawodowe
+                .Where(d => !string.IsNullOrEmpty(d.Nazwa))
+                .Select(d => d.Nazwa)
+                .Distinct()
+                .OrderBy(n => n)
+                .ToList();
+            return Ok(nazwy);
+        }
+
+        [HttpGet("options/zaswiadczenie")]
+        public ActionResult<IEnumerable<string>> GetZaswiadczeniaOptions()
+        {
+            var zaswiadczenia = _context.DoswiadczenieZawodowe
+                .Where(d => !string.IsNullOrEmpty(d.Zaswiadczenie))
+                .Select(d => d.Zaswiadczenie)
+                .Distinct()
+                .OrderBy(z => z)
+                .ToList();
+            return Ok(zaswiadczenia);
+        }
     }
 }
